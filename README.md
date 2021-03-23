@@ -1,4 +1,4 @@
-# forms-vue
+# ESM Form Creator
 
 ## Project setup
 ```
