@@ -1,6 +1,6 @@
 <template>
   <div class="esm">
-    <select v-model="inputType">
+    <select v-model.number="inputType">
       <option value=1>Text</option>
       <option value=2>Radio</option>
       <option value=3>Checkbox</option>
@@ -29,10 +29,10 @@
       </div>
       <div v-else-if="inputType == 4">
         <!-- Likert -->
-        <label>Max: <input type="number" v-model="data.likert_max"></label>
+        <label>Max: <input type="number" v-model.number="data.likert_max"></label>
         <label>Max Label: <input type="text" v-model="data.likert_max_label"></label>
         <label>Min Label: <input type="text" v-model="data.likert_min_label"></label>
-        <label>Step: <input type="number" v-model="data.likert_step"></label>
+        <label>Step: <input type="number" v-model.number="data.likert_step"></label>
       </div>
       <div v-else-if="inputType == 5">
         <!-- Quick Answer -->
@@ -40,12 +40,12 @@
       </div>
       <div v-else-if="inputType == 6">
         <!-- Slider -->
-        <label> Min: <input type="number" v-model="data.scale_min"></label>
-        <label>Max: <input type="number" v-model="data.scale_max"></label>
-        <label>Start: <input type="number" v-model="data.scale_start"></label>
+        <label> Min: <input type="number" v-model.number="data.scale_min"></label>
+        <label>Max: <input type="number" v-model.number="data.scale_max"></label>
+        <label>Start: <input type="number" v-model.number="data.scale_start"></label>
         <label>Max Label: <input type="text" v-model="data.scale_max_label"></label>
         <label>Min Label: <input type="text" v-model="data.scale_min_label"></label>
-        <label>Step: <input type="number" v-model="data.scale_step"></label>
+        <label>Step: <input type="number" v-model.number="data.scale_step"></label>
       </div>
       <div v-else-if="inputType == 10">
         <!-- Web -->
@@ -53,13 +53,13 @@
       </div>
       <div v-else-if="inputType == 14 || inputType == 16">
         <!-- Picture -->
-        <label>Camera: <input type="number" v-model="data.camera"></label>
+        <label>Camera: <input type="number" v-model.number="data.camera"></label>
       </div>
       <div>
         <label>Title: <input type="text" v-model="data.title"></label>
         <label>Instructions: <input type="text" v-model="data.instructions"></label>
         <label>Submit: <input type="text" v-model="data.submit"></label>
-        <label>Expiration Threshold: <input type="text" v-model="data.expiration_threshold"></label>
+        <label>Expiration Threshold: <input type="number" v-model.number="data.expiration_threshold"></label>
       </div>
     </div>
   </div>
@@ -102,6 +102,8 @@ export default {
         this.data = { url: 'https://xxxx.xxxx.xxxx' }
       } else if (this.inputType === 14 || this.inputType === 16) {
         this.data = { camera: 0 }
+      } else {
+        this.data = {}
       }
       this.data = {
         ...this.data,
@@ -119,7 +121,6 @@ export default {
   },
   watch: {
     inputType () {
-      this.inputType = Number(this.inputType)
       this.updateInputs()
     }
   },
