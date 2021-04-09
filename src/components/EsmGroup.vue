@@ -27,17 +27,9 @@ export default {
       this.inputs.splice(index, 1)
     }
   },
-  mounted () {
-    if (this.$attrs.value) {
-      this.inputs = this.$attrs.value
-    }
-  },
   watch: {
-    '$attrs.value': function () {
-      this.inputs = this.$attrs.value
-    },
     inputs () {
-      // this.$emit('update', this.inputs.map(item => item.data))
+      this.$emit('input', this.inputs)
     }
   },
   name: 'EsmGroup',

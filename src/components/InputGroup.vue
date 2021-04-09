@@ -23,20 +23,12 @@ export default {
       this.inputs.splice(index, 1)
     }
   },
-  mounted () {
-    if (this.$attrs.value) {
-      this.inputs = this.$attrs.value
-    }
-  },
   watch: {
-    '$attrs.value': function () {
-      this.inputs = this.$attrs.value
-    },
     inputs () {
       if (this.type === 'number') {
-        this.$emit('update', this.inputs.map(Number))
+        this.$emit('input', this.inputs.map(Number))
       } else {
-        this.$emit('update', this.inputs)
+        this.$emit('input', this.inputs)
       }
     }
   },

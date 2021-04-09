@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     renderJson () {
-      // deep copy
       const clone = { ...this.data }
       const newEsms = []
       for (const esm of this.data.esms) {
@@ -58,7 +57,7 @@ export default {
         Object.entries(esm.data).forEach(([key, value]) => {
           newEsm['esm_' + key] = value
         })
-        newEsms.push(newEsm)
+        newEsms.push({ esm: newEsm })
       }
 
       clone.esms = newEsms
