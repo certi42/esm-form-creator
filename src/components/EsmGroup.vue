@@ -28,8 +28,11 @@ export default {
     }
   },
   watch: {
-    inputs () {
-      this.$emit('input', this.inputs)
+    inputs: {
+      deep: true,
+      handler () {
+        this.$emit('input', this.inputs.map((input) => input.data))
+      }
     }
   },
   name: 'EsmGroup',

@@ -10,10 +10,10 @@
         <div> Hours:
           <input-group type="number" v-model="data.hours"/>
         </div>
-        <label id="interface">Interface: <input type="number" placeholder="Interface" v-model="data.interface"></label>
+        <label id="interface">Interface: <input type="number" placeholder="Interface" v-model.number="data.interface"></label>
         <label id="notification_title">Notification Title: <input type="text" placeholder="Notification Title" v-model="data.notification_title"></label>
         <label id="notification_body">Notification Body: <input type="text" placeholder="Notification Body" v-model="data.notification_body"></label>
-        <label id="randomize">Randomize: <input type="number" placeholder="Randomize" v-model="data.randomize"></label>
+        <label id="randomize">Randomize: <input type="number" placeholder="Randomize" v-model.number="data.randomize"></label>
         <div> ESMs:
           <esm-group v-model="data.esms"/>
         </div>
@@ -54,7 +54,7 @@ export default {
       const newEsms = []
       for (const esm of this.data.esms) {
         const newEsm = {}
-        Object.entries(esm.data).forEach(([key, value]) => {
+        Object.entries(esm).forEach(([key, value]) => {
           newEsm['esm_' + key] = value
         })
         newEsms.push({ esm: newEsm })
