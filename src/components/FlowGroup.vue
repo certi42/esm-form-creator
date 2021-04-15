@@ -1,17 +1,19 @@
 <template>
-  <section class="esm-group">
-    <div v-for="(input, index) of inputs" :key="input.uuid" class="input" :class="{line}">
-      <esm v-model="inputs[index].data"/>
-      <button @click="remove(index)" class="input-list-button danger">&times;</button>
+  <div class="flow-group">
+    <div>
+      <div v-for="(input, index) of inputs" :key="input.uuid" class="input">
+        <label>User Input: <input type="text" v-model="inputs[index].data.user_input"></label>
+        <EsmGroup v-model="inputs[index].data.esm" :line="false"/>
+        <button @click="remove(index)" class="input-list-button danger">&times;</button>
+      </div>
     </div>
     <button @click="add()" class="input-list-button">+</button>
-  </section>
+  </div>
 
 </template>
 
 <script>
 import { v4 as uuidv4 } from 'uuid'
-import Esm from './Esm.vue'
 
 export default {
   data () {
@@ -35,9 +37,17 @@ export default {
       }
     }
   },
-  props: ['line'],
-  name: 'EsmGroup',
-  components: { Esm }
+  beforeCreate: function () {
+    // lazy load the `Esm` component because it's recursive.
+    // ie. component tree looks like this:
+    // <Esm>
+    //   <FlowGroup>
+    //     <EsmGroup>
+    //     ...
+
+    this.$options.components.EsmGroup = require('./EsmGroup.vue').default
+  },
+  name: 'FlowGroup'
 }
 </script>
 
@@ -53,14 +63,14 @@ export default {
 .input {
   padding: 5px 0;
   display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: flex-start;
-}
-
-.line {
+  /* .esm { */
   padding-left: 20px;
   border-left: 1px solid #999;
   border-image: linear-gradient(to bottom, #0000 0%, #888 10%, #888 90%, #0000 100%) 1 100%;
+/* } */
 }
 
 .input input {
@@ -73,6 +83,7 @@ export default {
   background: none;
   border: none;
   outline: none;
+  width: min-content;
 }
 
 .input-list-button:hover {

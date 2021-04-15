@@ -12,7 +12,7 @@
     <label id="notification_body">Notification Body: <input type="text" placeholder="Notification Body" v-model="data.notification_body"></label>
     <label id="randomize">Randomize: <input type="number" placeholder="Randomize" v-model.number="data.randomize"></label>
     <div> ESMs:
-      <esm-group v-model="data.esms"/>
+      <esm-group v-model="data.esms" :line="true"/>
     </div>
   </div>
 </template>

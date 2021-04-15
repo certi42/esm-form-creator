@@ -60,12 +60,14 @@
         <label>Instructions: <input type="text" v-model="data.instructions"></label>
         <label>Submit: <input type="text" v-model="data.submit"></label>
         <label>Expiration Threshold: <input type="number" v-model.number="data.expiration_threshold"></label>
+        <div style="margin: 5px">Flows: <flow-group v-model="data.flows"/></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FlowGroup from './FlowGroup.vue'
 import InputGroup from './InputGroup.vue'
 export default {
   data () {
@@ -111,7 +113,8 @@ export default {
         title: 'EDIT HERE',
         instructions: 'EDIT HERE',
         submit: 'Submit',
-        expiration_threshold: 60
+        expiration_threshold: 60,
+        flows: []
       }
     }
   },
@@ -124,7 +127,7 @@ export default {
       this.updateInputs()
     }
   },
-  components: { InputGroup },
+  components: { InputGroup, FlowGroup },
   props: ['value'],
   emits: ['input'],
   name: 'Esm'
@@ -132,6 +135,9 @@ export default {
 </script>
 
 <style scoped>
+.esm select {
+  margin: 5px;
+}
 .input {
   padding: 5px 0;
   display: flex;
