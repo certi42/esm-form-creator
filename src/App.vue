@@ -24,24 +24,7 @@ export default {
   },
   methods: {
     renderJson () {
-      const data = this.schedules.map(schedule => {
-        if (Object.keys(schedule).length === 0) {
-          return
-        }
-        const clone = { ...schedule }
-        const newEsms = []
-        for (const esm of schedule.esms) {
-          const newEsm = {}
-          Object.entries(esm).forEach(([key, value]) => {
-            newEsm['esm_' + key] = value
-          })
-          newEsms.push({ esm: newEsm })
-        }
-
-        clone.esms = newEsms
-        return clone
-      })
-      this.json = JSON.stringify(data, undefined, 2)
+      this.json = JSON.stringify(this.schedules, undefined, 2)
     }
   },
   created () {
