@@ -1,11 +1,12 @@
 <template>
   <div class="flow-group">
-    <div>
-      <div v-for="(input, index) of inputs" :key="input.uuid" class="input">
-        <label>User Input: <input type="text" v-model="inputs[index].data.user_input"></label>
-        <EsmGroup v-model="inputs[index].data.esm" :line="false"/>
-        <button @click="remove(index)" class="input-list-button danger">&times;</button>
+    <div v-for="(input, index) of inputs" :key="input.uuid" class="input">
+      <div style="display: flex; flex-direction: column;">
+        <label>User Input: <input type="text" v-model="inputs[index].data.user_answer"></label>
+        <label>ESMs: </label>
+        <Esm v-model="inputs[index].data.next_esm.esm" :line="false"/>
       </div>
+      <button @click="remove(index)" class="input-list-button danger">&times;</button>
     </div>
     <button @click="add()" class="input-list-button">+</button>
   </div>
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     add () {
-      this.inputs.push({ uuid: uuidv4(), data: {} })
+      this.inputs.push({ uuid: uuidv4(), data: { user_answer: '', next_esm: { esm: {} } } })
     },
     remove (index) {
       this.inputs.splice(index, 1)
@@ -42,35 +43,30 @@ export default {
     // ie. component tree looks like this:
     // <Esm>
     //   <FlowGroup>
-    //     <EsmGroup>
+    //     <Esm>
     //     ...
 
-    this.$options.components.EsmGroup = require('./EsmGroup.vue').default
+    this.$options.components.Esm = require('./Esm.vue').default
   },
   name: 'FlowGroup'
 }
 </script>
 
 <style scoped>
-.input-group {
-  padding-left: 10px;
+.flow-group {
   display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  width: 100%;
+  flex-direction: row;
 }
 
 .input {
   padding: 5px 0;
   display: flex;
-  flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  /* .esm { */
+  justify-content: space-between;
   padding-left: 20px;
   border-left: 1px solid #999;
   border-image: linear-gradient(to bottom, #0000 0%, #888 10%, #888 90%, #0000 100%) 1 100%;
-/* } */
 }
 
 .input input {

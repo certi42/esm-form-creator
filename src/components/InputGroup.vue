@@ -32,6 +32,11 @@ export default {
       }
     }
   },
+  mounted () {
+    if (this.$attrs.value) {
+      this.inputs = [...this.$attrs.value]
+    }
+  },
   name: 'InputGroup',
   props: ['type']
 }
