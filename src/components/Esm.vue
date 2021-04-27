@@ -119,7 +119,7 @@ export default {
     }
   },
   mounted () {
-    this.$watch('data', () => this.$emit('input', this.data), { deep: true })
+    this.$watch('data', () => this.$emit('input', { esm: this.data }), { deep: true })
     this.updateInputs()
   },
   watch: {
